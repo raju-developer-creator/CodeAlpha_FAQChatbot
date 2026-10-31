@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CodeAlpha FAQ Chatbot</title>
+<style>
+  :root{--bg:#eef1f6;--panel:#fff;--ink:#14181f;--muted:#5d6675;--line:#d5dbe6;--accent:#2b4acb;--accent-ink:#fff;--bot:#e7ebf5}
+  @media (prefers-color-scheme:dark){:root{--bg:#10131a;--panel:#181c26;--ink:#e8ebf2;--muted:#98a1b3;--line:#2a3141;--accent:#7f98ff;--accent-ink:#10131a;--bot:#232a3a}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;justify-content:center;padding:24px 12px}
+  .chat{width:100%;max-width:640px;background:var(--panel);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;height:calc(100vh - 48px);min-height:420px}
+  header{padding:14px 18px;border-bottom:1px solid var(--line)}
+  header h1{font-size:1.1rem;margin:0}
+  header p{margin:2px 0 0;color:var(--muted);font-size:.85rem}
+  #log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+  .msg{max-width:85%;padding:10px 13px;border-radius:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+  .bot{background:var(--bot);align-self:flex-start;border-bottom-left-radius:4px}
+  .me{background:var(--accent);color:var(--accent-ink);align-self:flex-end;border-bottom-right-radius:4px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start}
+  .chip{font:inherit;font-size:.85rem;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:16px;padding:5px 11px}
+  .chip:hover{border-color:var(--accent)}
+  form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+  input{flex:1;min-width:0;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
+  input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  button.send{font:inherit;font-weight:600;cursor:pointer;border:0;border-radius:8px;background:var(--accent);color:var(--accent-ink);padding:10px 18px}
+</style>
+</head>
+<body>
+<div class="chat">
+  <header><h1>CodeAlpha FAQ Chatbot</h1><p>Ask about the AI internship: tasks, perks, submission</p></header>
+  <div id="log" aria-live="polite"></div>
+  <form id="form">
+    <input id="msg" autocomplete="off" placeholder="Type your question" aria-label="Your question" required>
+    <button class="send" type="submit">Send</button>
+  </form>
+</div>
+<script>
+const log = document.getElementById("log"), form = document.getElementById("form"), msg = document.getElementById("msg");
+const starter = {{ suggestions|tojson }};
+
+function add(text, who){
+  const d = document.createElement("div");
+  d.className = "msg " + who; d.textContent = text;
+  log.appendChild(d); log.scrollTop = log.scrollHeight;
+}
+function chips(list){
+  if(!list.length) return;
+  const w = document.createElement("div"); w.className = "chips";
+  list.forEach(q => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = q;
+    b.onclick = () => send(q);
+    w.appendChild(b);
+  });
+  log.appendChild(w); log.scrollTop = log.scrollHeight;
+}
+async function send(text){
+  add(text, "me");
+  try{
+    const res = await fetch("/ask", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({message:text})});
+    const data = await res.json();
+    add(data.answer, "bot");
+    chips(data.suggestions || []);
+  }catch{
+    add("Could not reach the server. Please try again.", "bot");
+  }
+}
+form.addEventListener("submit", e => { e.preventDefault(); const t = msg.value.trim(); if(!t) return; msg.value = ""; send(t); });
+
+add("Hi! Ask me anything about the CodeAlpha AI internship.", "bot");
+chips(starter);
+</script>
+</body>
+</html>

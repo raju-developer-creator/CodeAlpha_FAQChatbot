@@ -1,0 +1,17 @@
+[
+  {"q": "What is the CodeAlpha AI internship?", "a": "It is a program that gives students hands-on experience in AI model development, machine learning workflows and real-time data processing, with expert mentorship on real projects."},
+  {"q": "What perks do interns get?", "a": "You get an internship offer letter, a QR-verified completion certificate, a unique ID certificate, a letter of recommendation (based on performance), job and placement support, and resume building support."},
+  {"q": "How many tasks do I need to complete?", "a": "You must complete a minimum of 2 or 3 tasks out of the 4 listed. Submitting only one task is considered incomplete and no certificate is issued."},
+  {"q": "What are the AI tasks I can choose from?", "a": "The four tasks are: Language Translation Tool, Chatbot for FAQs, Music Generation with AI, and Object Detection and Tracking."},
+  {"q": "How should I name my GitHub repository (repo)?", "a": "Name it CodeAlpha_ProjectName, for example CodeAlpha_LanguageTranslator, and upload your complete source code to it."},
+  {"q": "Do I need to post on LinkedIn?", "a": "Yes. Share your internship status on LinkedIn tagging @CodeAlpha, and post a video explanation of each project with your GitHub repo link."},
+  {"q": "How do I submit my completed task?", "a": "Use the submission form that is shared in your WhatsApp group. Tasks are accepted only through that form, so follow its instructions carefully."},
+  {"q": "Will I get a certificate?", "a": "Yes, if you complete the minimum number of tasks. The completion certificate is QR verified and you also receive a unique ID certificate."},
+  {"q": "Can I get a letter of recommendation?", "a": "Yes. A letter of recommendation is given based on your performance during the internship."},
+  {"q": "Is there placement or job support?", "a": "Yes. CodeAlpha offers job opportunities and placement support, plus resume building support, as part of the internship perks."},
+  {"q": "What should I use for the language translation task?", "a": "Build a UI where users enter text and pick source and target languages, then call a translation API such as Google Translate or Microsoft Translator and show the result. A copy button or text-to-speech is a nice extra."},
+  {"q": "How do I build the FAQ chatbot task?", "a": "Collect FAQs on a topic, preprocess the text with NLTK or SpaCy, match user questions to the most similar FAQ using cosine similarity or intent matching, and show the best answer. A simple chat UI is optional."},
+  {"q": "What do I need for the music generation task?", "a": "Collect MIDI data, turn it into note sequences with music21, train an LSTM or GAN model, generate new sequences and convert them to MIDI or audio."},
+  {"q": "What do I need for the object detection and tracking task?", "a": "Use OpenCV for webcam or video input, a pre-trained model like YOLO or Faster R-CNN for detection, SORT or Deep SORT for tracking, and display boxes with labels and tracking IDs in real time."},
+  {"q": "How can I contact CodeAlpha?", "a": "Website: www.codealpha.tech. WhatsApp: +91 9336576683. Email: services@codealpha.tech or services.codealpha@gmail.com."}
+]
